@@ -21,7 +21,6 @@ export class ProfileService {
       const value = (hash >> (i * 8)) & 0xff;
       color += ('00' + value.toString(16)).slice(-2);
     }
-    console.log(color, name);
     return color;
   }
 }

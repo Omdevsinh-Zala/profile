@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
         </div>
       } @else {
         <div class="text-profile" [ngStyle]="getStyleProp()">
-          <p class="refText"> {{ content().split(' ').length > 1 ?  content().split(' ')[0].charAt(0).toUpperCase()+content().split(' ')[1].charAt(0).toUpperCase() : content().split(' ')[0].charAt(0).toUpperCase() }} </p>
+          <p class="refText" [ngStyle]="getTextStyle()"> {{ content().split(' ').length > 1 ?  content().split(' ')[0].charAt(0).toUpperCase()+content().split(' ')[1].charAt(0).toUpperCase() : content().split(' ')[0].charAt(0).toUpperCase() }} </p>
         </div>
       }
     </div>
@@ -43,22 +43,20 @@ import { CommonModule } from '@angular/common';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProfileComponent implements AfterViewChecked {
+export class ProfileComponent {
   service = inject(ProfileService);
-    bgColor:InputSignal<any> = input();
+    bgColor:InputSignal<any> = input('');
     content:InputSignal<string> = input('Some one');
     shape:InputSignal<'squre'> | InputSignal<'rounded'> = input('squre');
     src:InputSignal<string> = input('');
     altText:InputSignal<string> = input('Example Image');
     opacity:InputSignal<string> | InputSignal<number> = input(1);
-    borderwidth:InputSignal<string> | InputSignal<number>= input(0);
-    borderColor:InputSignal<any> = input();
-    eleHeight:InputSignal<string> | InputSignal<number>= input(80);
-    eleWidth:InputSignal<string> | InputSignal<number>= input(80);
+    borderwidth:InputSignal<string> | InputSignal<number>= input('');
+    borderColor:InputSignal<any> = input('');
+    eleHeight:InputSignal<string> | InputSignal<number>= input(40);
+    eleWidth:InputSignal<string> | InputSignal<number>= input(40);
+    textFontSize:InputSignal<number> = input(22);
 
-    ngAfterViewChecked(): void {
-      this.getStyleProp();
-    }
     getStyleProp():{ [key:string]: string } {
       const bgColor = this.bgColor().trim();
       const shape = this.shape();
@@ -77,16 +75,12 @@ export class ProfileComponent implements AfterViewChecked {
       } else {
         style['border'] = '0';
       }
-      console.log(bgColor);
       if(src == '' && bgColor == '') {
         style['background'] = this.service.randomBgColor(Number(this.opacity()), name)
-        console.log('1')
       } else if(src == '' && bgColor != '') {
         style['background'] = bgColor;
-        console.log('2')
       } else if(src != '') {
         style['background'] = 'transparent';
-        console.log('3')
       }
 
       style['height'] = this.eleHeight()+'px';
@@ -100,6 +94,12 @@ export class ProfileComponent implements AfterViewChecked {
       }
 
       return style;
+    }
+
+    getTextStyle(): { [key: string]: string }  {
+      const style: { [key: string]: string } = {};
+      style['font-size'] = this.textFontSize()+'px';
+      return style
     }
 
 }
