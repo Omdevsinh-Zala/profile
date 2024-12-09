@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
     <div class="profile-wrap">
       @if (src().trim() != '') {
         <div class="user-profile" [ngStyle]="getStyleProp()">
-            <img [src]="src()" [alt]="altText()" [height]="eleHeight()" [width]="eleWidth()" />
+            <img class="contentImage" [ngStyle]="{ 'border-radius': shape() == 'squre' ? borderRadius() ? borderRadius()+'px' : '0px' : '50%'  }" [src]="src()" [alt]="altText()" [height]="eleHeight()" [width]="eleWidth()" />
         </div>
       } @else {
         <div class="text-profile" [ngStyle]="getStyleProp()">
@@ -23,6 +23,11 @@ import { CommonModule } from '@angular/common';
       text-align: center;
       height: 100%;
       width: 100%;
+      .user-profile {
+        .contentImage {
+          object-fit: cover;
+        }
+      }
       .text-profile {
         text-align: center;
         display : flex;
@@ -56,6 +61,7 @@ export class ProfileComponent {
     eleHeight:InputSignal<string> | InputSignal<number>= input(40);
     eleWidth:InputSignal<string> | InputSignal<number>= input(40);
     textFontSize:InputSignal<number> = input(22);
+    borderRadius:InputSignal<string> | InputSignal<number> = input('');
 
     getStyleProp():{ [key:string]: string } {
       const bgColor = this.bgColor().trim();
@@ -91,6 +97,10 @@ export class ProfileComponent {
         style['border-radius'] = '50%';
       } else {
         style['border-radius'] = '0%';
+      }
+
+      if(this.borderRadius()) {
+        style['border-radius'] = this.borderRadius()+'px';
       }
 
       return style;
