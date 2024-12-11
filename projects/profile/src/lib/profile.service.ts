@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProfileService {
-
-  constructor() { }
+  constructor() {}
 
   randomBgColor(opacity: number, str: string) {
     const op = opacity ? opacity : 1;
