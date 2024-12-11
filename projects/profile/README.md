@@ -17,9 +17,7 @@ ii. directly add into your angular project
    ng add ng-profile-box
    ```
 
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
-
-# How to add in your project
+# How to Integrate into Your Project
 
 1. After installing this package in your project import the component in `Component.ts` or `Module.ts` file
 ```
