@@ -8,13 +8,13 @@ To use this package, run
 
 i. Add this package separatly by
    ```bash
-   npm install profile
+   npm install ng-profile-box
    ```
 or
 
 ii. directly add into your angular project
    ```bash
-   ng add profile
+   ng add ng-profile-box
    ```
 
 This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
